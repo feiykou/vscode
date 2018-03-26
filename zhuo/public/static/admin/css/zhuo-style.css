@@ -1,0 +1,173 @@
+@charset "UTF-8";
+.mr10{
+	margin-right: 10px;
+}
+.block{
+	display: block;
+}
+.none{
+	display: none;
+}
+
+.col-lg-6{
+	padding: 0;
+}
+
+.form-group{
+	overflow: hidden;
+}
+
+.clearfix{*zoom:1;}
+.clearfix:after{content:".";display:block;clear:both;visibility:hidden;line-height:0;height:0;}
+
+/* 上传组件 */
+.addimg_item{
+	position: relative;
+	width:120px;
+	height:120px;
+	border:1px dashed #D7D7D7;
+}
+.addimg_line{
+	position: absolute;
+	left:50%;
+	top:50%;
+}
+.addimg_line i{
+	position: absolute;
+}
+.addimg_line i.line-row{
+	width:80px;
+	left:-40px;
+	border-top:1px solid #D7D7D7;
+}
+.addimg_line i.line-col{
+	height:80px;
+	top:-40px;
+	border-left:1px solid #D7D7D7;
+}
+
+
+.content{
+	height:100%;
+}
+
+.btn-primary {
+    background-color: #1ab394;
+    border-color: #1ab394;
+    color: #FFF;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary{
+	background-color: #4aa49d; 
+    border-color: #4aa49d; 
+    color: #FFF;
+}
+
+.view-message{
+	white-space: nowrap;
+}
+
+/*分页*/
+.paging-wrap{
+	text-align: right;
+	padding-right: 26px;
+}
+
+
+/* 添加文章 */
+.form-horizontal .control-label{
+	text-align: right;
+}
+
+/* 文章列表 */
+.inbox-checkbox{
+	width: 30px;
+}
+
+/* 文章内容 */
+.file-update{
+	position: relative;
+}
+
+.file-update input[type='file']{
+	position: absolute;
+	left:0;
+	top:0;
+	width: 120px;
+	height: 120px;
+	opacity:0;
+}
+
+.file-img{
+	position: absolute;
+	left:0;
+	top:0;
+	text-align: right;
+	z-index:999;
+	width:120px;
+	height:120px;
+}
+.file-img img{
+	position: absolute;
+	left:0;
+	top:0;
+	z-index:0;
+}
+.file-img .del{
+	position: absolute;
+	right:0;
+	top:0;
+	padding: 5px 4px;
+	background-color: #FF6C60;
+	color: #fff;
+	border-radius: 3px;
+	cursor: pointer;
+	opacity:0.8;
+	z-index: 999;
+}
+.file-img .del:hover{
+	opacity:1;
+}
+
+/* 分类 */
+.cate-heading{
+}
+.cate-opear span{
+	margin: 15px;
+}
+.cate-dialog{
+	padding-top: 100px;
+}
+
+
+/*loading css*/
+#cd_loading{border:1px solid #999;background:#141414;border-radius:4px;color:#fff;padding:16px;position:absolute; z-index: 100;}
+#cd_loading_content{padding:5px 10px 10px 22px;background:url('loading.gif') no-repeat 0 5px;}
+.overlay-mask{position: absolute;left: 0;top: 0;z-index:99;width: 100%;height: 100%;background-color: #000;filter: alpha(opacity=60);-moz-opacity:0.6;-khtml-opacity:0.6;opacity: 0.6;display: none;}
+
+
+
+/* 文章列表 */
+.art-img img{
+	width: 80px;
+	height:80px;
+}
+
+/* 角色 */
+.status-start{
+	margin-left: 10px;
+}
+.status_check{
+	vertical-align: -2px;
+}
+.status-start span{
+	display: inline-block;
+	margin-left:3px;
+}
+
+/**用户*/
+.user-role-checked label{
+	display: inline-block;
+	margin-right: 10px;
+}
+

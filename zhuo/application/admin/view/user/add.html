@@ -1,0 +1,35 @@
+<form id="add-form">
+    <div class='modal-header'>
+        <button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'></span></button><h4 class='modal-title' id='exampleModalLabel'>添加管理员</h4>
+    </div>
+    <div class='modal-body'>
+        <div class='form-group'>
+            <label class='control-label'>用户名</label>
+            <input type='text' class='form-control' name='name'>
+        </div>
+        <div class='form-group'>
+            <label class='control-label'>密码</label>
+            <input type='text' class='form-control' name='passwords'>
+        </div>
+        <div class='form-group '>
+            <label class='control-label'>角色</label>
+            <div class="user-role-checked">
+                {volist name="roleDatas" id="data"}
+                <label>
+                    <input name="groups_id[]" value="{$data.id}" class="inverted" type="checkbox">
+                    <span class="text">{$data.title}</span>
+                </label>
+                {/volist}
+            </div>
+            <!--<select class='form-control' name='group_id'>-->
+                <!--{volist name="roleDatas" id="data"}-->
+                    <!--<option value="{$data.id}">{$data.title}</option>-->
+                <!--{/volist}-->
+            <!--</select>{if condition='$roleDatas eq []'}<span style='display: inline-block; padding-top: 6px; color: #ff6c60;'>请添加角色</span>{/if}-->
+        </div>
+    </div>
+    <div class='modal-footer'>
+        <button type='button' class='btn btn-default' data-dismiss='modal'>取消</button>
+        <button type='button' class='btn btn-primary add-sub'>提交</button>
+    </div>
+</form>

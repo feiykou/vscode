@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="../css/plugins/custom.css">
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+<body>
+	<label class="checkbox-inline i-checks">
+		<div class="icheckbox_square-green">
+			<input type="checkbox" value="option1" style="position: absolute; opacity: 0;">
+		</div>
+	</label>
+	<label class="checkbox-inline i-checks">
+		<div class="icheckbox_square-green">
+			<input type="checkbox" value="option1" style="position: absolute; opacity: 0;">
+		</div>
+	</label>
+	<script src="../js/jquery.js"></script>
+	<script>
+		$(function(){
+			$(".i-checks").hover(function(){
+				$(this).find(".icheckbox_square-green").addClass("hover");
+			},function(){
+				$(this).find(".icheckbox_square-green").removeClass("hover");
+			});
+
+			$(".icheckbox_square-green").on("click",function(){
+				var isChecked = $(this).hasClass("checked");
+				$(this)[isChecked ? "removeClass" : "addClass"]("checked");
+				$(this).find("input").attr("checked",!isChecked);
+				return false;
+			});
+		});
+	</script>
+</body>
+</html>

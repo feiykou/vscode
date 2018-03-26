@@ -1,0 +1,28 @@
+<form id="edit-form">
+    <div class='modal-header'>
+        <button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'></span></button><h4 class='modal-title' id='exampleModalLabel'>添加管理员</h4>
+    </div>
+    <div class='modal-body'>
+        <div class='form-group'>
+            <label class='control-label'>权限名</label>
+            <input type='text' class='form-control' name='name' value="{$curIdData.name}">
+        </div>
+        <div class='form-group'>
+            <label class='control-label'>链接</label>
+            <input type='text' class='form-control' name='condition' value="{$curIdData.condition}">
+        </div>
+        <div class='form-group '>
+            <label class='control-label'>父级权限</label>
+            <select class='form-control' name='pid'>
+                <option value='0'>顶级权限</option>
+                {volist name="sortData" id="data"}
+                <option value="{$data.id}" {if condition='$curIdData.pid eq $data.id'}selected="selected"{/if}>{$data.level | str_repeat='-',###*3}{$data.name}</option>
+                {/volist}
+            </select>
+        </div>
+    </div>
+    <div class='modal-footer'>
+        <button type='button' class='btn btn-default' data-dismiss='modal'>取消</button>
+        <button type='button' class='btn btn-primary edit-sub' data-id="{$curIdData.id}">提交</button>
+    </div>
+</form>

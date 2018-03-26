@@ -1,0 +1,126 @@
+{extend name="public:base" /}
+{block name="property"}
+<meta name="description" content="">
+<meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+<title>电商cms</title>
+<link rel="stylesheet" href="__RES_ADMIN__/assets/beyond/css/beyond.css">
+{/block}
+{block name="content"}
+<!--main content start-->
+<section id="main-content">
+    <section class="wrapper">
+        <!-- page start-->
+        <div class="row">
+            <div class="col-lg-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                        添加角色
+                    </header>
+                    <form class="add-form" method="post" action="{:url('add')}">
+                        <div class='modal-body'>
+                            <div class='form-group'>
+                                <label class='control-label'>角色名：</label>
+                                <input type='text' class='form-control' name='title'>
+                            </div>
+                            <div class='form-group'>
+                                <label class='control-label'>启动状态：</label>
+                                <label class="status-start"><input class="status_check inverted" type="checkbox" checked="checked" name="status" value="1"><span class="text"></span><b>启动</b></label>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-6">
+                                    <table class="table table-hover">
+                                        <thead class="bordered-darkorange">
+                                        <tr>
+                                            <th>
+                                                配置权限
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {volist name="ruleData" id="authRule"}
+                                        <tr>
+                                            <td>
+                                                <label>
+                                                    <?php echo str_repeat('&nbsp;', $authRule['level']*3);?>
+                                                    <input name="rules[]" value="{$authRule.id}" dataid="id-{$authRule.dataid}" class="inverted checkbox-parent {if condition="$authRule['level'] neq 0"} checkbox-child {/if} " type="checkbox">
+                                                    <span {if condition="$authRule['level'] eq 0"} style="font-weight:bold; font-size:14px;" {/if} class="text">{$authRule.name}</span>
+                                                </label>
+                                            </td>
+                                        </tr>
+                                        {/volist}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='modal-footer'>
+                            <button type='button' class='btn btn-default' data-dismiss='modal'>取消</button>
+                            <button type='button' class='btn btn-primary cateAdd-sub'>提交</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+        <!-- page end-->
+    </section>
+</section>
+<!--main content end-->
+
+{/block}
+
+{block name="script"}
+<script>
+
+    //动态选择框，上下级选中状态变化
+    $('input.checkbox-parent').on('change', function () {
+        var dataid = $(this).attr("dataid");
+        $('input[dataid^=' + dataid + ']').prop('checked', $(this).is(':checked'));
+    });
+    $('input.checkbox-child').on('change', function () {
+        var dataid = $(this).attr("dataid");
+        dataid = dataid.substring(0, dataid.lastIndexOf("-"));
+        var parent = $('input[dataid=' + dataid + ']');
+        if ($(this).is(':checked')) {
+            parent.prop('checked', true);
+            //循环到顶级
+            while (dataid.lastIndexOf("-") != 2) {
+                dataid = dataid.substring(0, dataid.lastIndexOf("-"));
+                parent = $('input[dataid=' + dataid + ']');
+                parent.prop('checked', true);
+            }
+        } else {
+            //父级
+            if ($('input[dataid^=' + dataid + '-]:checked').length == 0) {
+                parent.prop('checked', false);
+                //循环到顶级
+                while (dataid.lastIndexOf("-") != 2) {
+                    dataid = dataid.substring(0, dataid.lastIndexOf("-"));
+                    parent = $('input[dataid=' + dataid + ']');
+                    if ($('input[dataid^=' + dataid + '-]:checked').length == 0) {
+                        parent.prop('checked', false);
+                    }
+                }
+            }
+        }
+    });
+
+    $(".status_check").on('click',function(){
+
+        if(!$(this).is(":checked")){
+            $(this).next().next().text("未启动");
+            $(this).val(0);
+        }else{
+            $(this).next().next().text("启动");
+            $(this).val(1);
+        }
+    });
+
+    $(".cateAdd-sub").on("click",function () {
+        $(".add-form").submit();
+    });
+</script>
+{/block}
+
+
+
+

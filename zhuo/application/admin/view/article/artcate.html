@@ -1,0 +1,170 @@
+{extend name="public:base" /}
+{block name="property"}
+<meta name="description" content="">
+<meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+<title>电商cms</title>
+{/block}
+
+
+{block name="content"}
+
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <section class="panel">
+                        <header class="panel-heading cate-heading">
+                            分类管理
+                        </header>
+                        <div class="cate-opear">
+                            <span class="btn btn-shadow btn-danger" data-toggle="modal" data-target="#zhuo-modal" data-whatever="@mdo">添加分类</span>
+                        </div>
+                        <table class="table table-striped table-advance table-hover">
+                            <thead>
+                            <tr>
+                                <th><i class="icon-bullhorn"></i> 分类id</th>
+                                <th class="hidden-phone"><i class="icon-question-sign"></i>当前类</th>
+                                <th><i class="icon-bookmark"></i> 父类</th>
+                                <th><i class=" icon-edit"></i> 操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {volist name="cateArr" id="data"}
+                                <tr>
+                                    <td><span>{$data.id}</span></td>
+                                    <td class="hidden-phone">{$data.level | str_repeat='--',###*2} {$data.name}</td>
+                                    <td>{if condition="$data.pid == 0"}顶级部门{else /}{$data.pname}{/if}</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-xs btn-edit" data-id="{$data.id}" data-toggle="modal" data-target="#edit-modal"><i class="icon-pencil"></i></button>
+                                        <button class="btn btn-danger btn-xs btn-del" data-id="{$data.id}" data-toggle="modal" data-target="#del-modal"><i class="icon-trash "></i></button>
+                                    </td>
+                                </tr>
+                            {/volist}
+                            </tbody>
+                        </table>
+
+                        <nav class="paging-wrap" aria-label="...">
+                            {$page}
+                        </nav>
+                    </section>
+                </div>
+            </div>
+            <!-- page end-->
+        </section>
+    </section>
+    <!--main content end-->
+    <div class="modal fade" id="zhuo-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog cate-dialog" role="document">
+            <div class="modal-content">
+                <form id='cate-add-form'>
+                    <div class='modal-header'>
+                        <button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'></span></button><h4 class='modal-title' id='exampleModalLabel'>添加分类</h4>
+                    </div>
+                    <div class='modal-body'>
+                        <div class='form-group'>
+                            <label for='recipient-name' class='control-label'>分类名称</label>
+                            <input type='text' class='form-control' name='name'>
+                        </div>
+                        <div class='form-group '>
+                            <label for='recipient-name' class='control-label'>分类</label>
+                            <select class='form-control' name='pid'>
+                                <option value='0'>顶级分类</option>
+                                {volist name='cateArr' id='data'}
+                                <option value='{$data.id}'>{$data.level | str_repeat='--',###*2} {$data.name}</option>
+                                {/volist}
+                            </select>
+                        </div>
+                    </div>
+                    <div class='modal-footer'>
+                        <button type='button' class='btn btn-default' data-dismiss='modal'>取消</button>
+                        <button type='button' class='btn btn-primary cateAdd-sub'>提交</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog cate-dialog" role="document">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+    <!-- 删除dialog -->
+    <div class="modal fade" id="del-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog cate-dialog" role="document">
+            <div class="modal-content">
+                <form id='cate-del-form'>
+                    <div class='modal-header'>
+                        <button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'></span></button><h4 class='modal-title'>删除</h4>
+                    </div>
+                    <div class='modal-body' style=" font-size: 18px; padding: 20px 0 10px 30px;">
+                        <span>是否要删除！</span>
+                    </div>
+                    <div class='modal-footer'>
+                        <button type='button' class='btn btn-default' data-dismiss='modal'>取消</button>
+                        <button type='button' class='btn btn-primary cateDel-sub'>提交</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{/block}
+{block name="script"}
+
+<script>
+    /*
+    * 添加分类
+    * */
+    $(".cateAdd-sub").on("click",function(){
+        reqAjaxJson.init({
+            url: "{:Url('cateAdd')}",
+            reqData: $('#cate-add-form').serialize(),
+            modalDom: $('#zhuo-modal'),
+            redirectP: "/artcate"
+        });
+
+    });
+
+    // 过滤字符串中\r\n和\
+    function trimBr(str) {
+        str=str.replace(/\\r\\n|\\|"/g,"");
+        return str;
+    }
+
+    // 点击编辑
+    $(".btn-edit").on("click",function(){
+        var cateid = $(this).data("id");
+        $("#edit-modal .modal-content").load("{:Url('cateEdit')}?id="+cateid,'',function(result){
+            $("#edit-modal .modal-content").html(trimBr(result));
+        });
+    });
+
+    // 编辑提交
+    $("#edit-modal").on("click",'.cateEdit-sub',function(){
+        var editId = $(this).data('id');
+        reqAjaxJson.init({
+            url: "{:Url('handleEdit')}?id="+editId,
+            reqData: $('#cate-edit-form').serialize(),
+            modalDom: $('#edit-modal'),
+            redirectP: "/artcate",
+            attrArr: ['id']
+        });
+    });
+
+    // 删除
+    modelReq({
+        "modalId": "#del-modal",
+        "url": "/admin/article/cateDel",
+        "redirectP": "/artcate",
+        "sureClass": ".cateDel-sub",
+        "btnClass": ".btn-del"
+    });
+
+
+
+
+</script>
+{/block}
+

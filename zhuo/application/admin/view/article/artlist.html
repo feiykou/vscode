@@ -1,0 +1,180 @@
+{extend name="public:base" /}
+{block name="property"}
+<meta name="description" content="">
+<meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+<title>电商cms</title>
+{/block}
+
+
+{block name="content"}
+    <!--main content start-->
+    <section id="main-content">
+        <!--mail inbox start-->
+        <aside class="lg-side form-group">
+            <div class="inbox-head">
+                <h3>文章列表</h3>
+                <form class="pull-right position" action="#">
+                    <div class="input-append">
+                        <input type="text"  placeholder="Search Mail" class="sr-input">
+                        <button type="button" class="btn sr-btn"><i class="icon-search"></i></button>
+                    </div>
+                </form>
+            </div>
+            <div class="inbox-body">
+                <div class="mail-option">
+                    <div class="chk-all">
+                        <div class="checkbox i-checks">
+                            <label>
+                                <div class="checkbox_square-green"><input type="checkbox" value="" style="position: absolute; opacity: 0;"></div>全选
+                            </label>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <a class="btn mini tooltips" data-placement="top" data-original-title="Refresh">
+                            <i class="icon-refresh"></i>
+                        </a>
+                    </div>
+                    <div class="btn-group">
+                        <a href="javascript:;" class="btn mini selectAll-del">删除</a>
+                    </div>
+                </div>
+                <table class="table table-inbox table-hover">
+                    <thead>
+                        <tr>
+                            <td class="view-message inbox-small-cells"></td>
+                            <td class="inbox-small-cells">标题</td>
+                            <td class="view-message">类型</td>
+                            <td class="view-message">图片</td>
+                            <td class="view-message">发布人</td>
+                            <td class="view-message">发布时间</td>
+                            <td class="view-message">操作</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {volist name="artData" id="art"}
+                        <tr data-id="{$art.id}">
+                            <td class="inbox-checkbox">
+                                <div class="checkbox i-checks">
+                                    <label>
+                                        <div class="checkbox_square-green"><input type="checkbox" value="" style="position: absolute; opacity: 0;"></div>
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="view-message">{$art.title}</td>
+                            <td class="view-message">{$art.pname}</td>
+                            <td class="view-message art-img">
+                                {if condition="$art.img_url"}<img src="{$art.img_url}" alt="">{/if}
+                            </td>
+                            <td class="view-message">姚卓</td>
+                            <td class="view-message">{$art.create_time}</td>
+                            <td class="view-message"><span class="btn btn-primary btn-xs mr10 btn-del" data-id="{$art.id}" data-toggle="modal" data-target="#del-modal">删除</span> <a href="{:url('article/artEdit',['id'=>$art.id])}" class="btn btn-primary btn-xs">编辑</a></td>
+                        </tr>
+                        {/volist}
+
+                    </tbody>
+                </table>
+                <nav class="paging-wrap" aria-label="...">
+                    {$page}
+                </nav>
+            </div>
+
+        </aside>
+        <!--mail inbox end-->
+    </section>
+    <!--main content end-->
+
+    <!-- 删除弹出层 -->
+    <div class="modal fade" id="del-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog cate-dialog" role="document">
+            <div class="modal-content">
+                <form id='cate-del-form'>
+                    <div class='modal-header'>
+                        <button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'></span></button><h4 class='modal-title' >删除</h4>
+                    </div>
+                    <div class='modal-body' style=" font-size: 18px; padding: 20px 0 10px 30px;">
+                        <span>是否要删除！</span>
+                    </div>
+                    <div class='modal-footer'>
+                        <button type='button' class='btn btn-default' data-dismiss='modal'>取消</button>
+                        <button type='button' class='btn btn-primary cateDel-sub'>提交</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{/block}
+
+
+
+
+{block name="script"}
+<script type="text/javascript">
+    $(function(){
+        //全选和反选
+        var $singleCheck = $(".table-inbox .checkbox_square-green");
+        var $allCheck = $(".chk-all .checkbox_square-green");
+        $allCheck.on("click",function(){
+            if (!$(this).hasClass("checked")) {
+                $singleCheck.each(function () {
+                    $(this).removeClass("checked");
+                });
+            } else {
+                $singleCheck.each(function () {
+                    $(this).addClass("checked");
+                });
+            };
+        });
+
+        //选择事件
+        $singleCheck.on("click", function () {
+            var checked_len = $singleCheck.filter(".checked").length;
+            var allChecked = $singleCheck.length;
+            if(checked_len !== allChecked){
+                $allCheck.removeClass("checked");
+            }else{
+                $allCheck.addClass("checked");
+            }
+        });
+
+        $(".selectAll-del").on("click",function(){
+            getSelectAllTr();
+        });
+
+        function getSelectAllTr(){
+            $childrens = $(".table-inbox tbody").children();
+            $childsArr = Array.prototype.slice.call($childrens);
+            var idsArr = [];
+            $childsArr.forEach(function(trDom){
+
+                if($(trDom).find('.checkbox_square-green').hasClass("checked")){
+                    idsArr.push($(trDom).data('id'));
+                }
+            });
+
+            reqAjaxJson.init({
+                'url': "{:url('removeMoreArt')}",
+                'reqData': {idsArr:idsArr},
+                'redirectP': "{:url('/artlist')}"
+            });
+        }
+
+
+
+        modelReq({
+            "modalId": "#del-modal",
+            "url": '/admin/article/removeArt',
+            "redirectP": "/artlist",
+            "sureClass": ".cateDel-sub",
+            "btnClass": ".btn-del"
+        });
+
+
+
+        
+
+    });
+
+
+
+</script>
+{/block}

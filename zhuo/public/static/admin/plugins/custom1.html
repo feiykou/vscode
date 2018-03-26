@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="../css/plugins/custom.css">
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+<body>
+	<div class="form-group">
+        <label class="col-sm-2 control-label">复选框&amp;单选框
+            <br><small class="text-navy">自定义样式</small>
+        </label>
+
+        <div class="col-sm-10">
+            <div class="checkbox i-checks">
+                <label>
+                    <div class="checkbox_square-green" style="position: relative;"><input type="checkbox" value="" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> <i></i> 选项1</label>
+            </div>
+            <div class="checkbox i-checks">
+                <label class="">
+                    <div class="checkbox_square-green checked" style="position: relative;"><input type="checkbox" value="" checked="" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> <i></i> 选项2（选中）</label>
+            </div>
+            <div class="checkbox i-checks">
+                <label>
+                    <div class="checkbox_square-green checked disabled" style="position: relative;"><input type="checkbox" value="" disabled="" checked="" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> <i></i> 选项3（选中并禁用）</label>
+            </div>
+            <div class="checkbox i-checks">
+                <label>
+                    <div class="checkbox_square-green disabled" style="position: relative;"><input type="checkbox" value="" disabled="" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> <i></i> 选项4（禁用）</label>
+            </div>
+            <div class="radio i-checks">
+                <label class="">
+                    <div class="radio_square-green radio_square" style="position: relative;"><input type="radio" value="option1" name="a" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> <i></i> 选项1</label>
+            </div>
+            <div class="radio i-checks">
+                <label class="">
+                    <div class="radio_square-green radio_square checked" style="position: relative;"><input type="radio" checked="" value="option2" name="a" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> <i></i> 选项2（选中）</label>
+            </div>
+            <div class="radio i-checks">
+                <label>
+                    <div class="radio_square-green checked disabled" style="position: relative;"><input type="radio" disabled="" checked="" value="option2" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> <i></i> 选项3（选中并禁用）</label>
+            </div>
+            <div class="radio i-checks">
+                <label>
+                    <div class="radio_square-green disabled" style="position: relative;"><input type="radio" disabled="" name="a" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div> <i></i> 选项4（禁用）</label>
+            </div>
+        </div>
+    </div>
+	<script src="../js/jquery.js"></script>
+	<script src="../js/custom.js"></script>
+	<script>
+		// $(function(){
+		// 	$(".i-checks").hover(function(){
+		// 		$(this).find(".checkbox_square-green").addClass("hover");
+		// 	},function(){
+		// 		$(this).find(".checkbox_square-green").removeClass("hover");
+		// 	});
+
+		// 	// check("radio");
+		// 	// check("checkbox");
+		// 	check(["radio","checkbox"]);
+		// 	function check(type){
+		// 		var flag = false;
+
+		// 		function isArray(o){
+		// 			return Object.prototype.toString.call(o)=='[object Array]';
+		// 		}
+
+		// 		if(isArray(type)){
+		// 			for(var index in type){
+		// 				if(type[index] === "radio") {flag = true;}
+		// 				if(type[index] === "checkbox") {flag = false;}
+		// 				checkDisable(type[index],flag);
+		// 			}
+		// 		}else{
+		// 			if(type === "radio") {flag = true;}
+		// 			checkDisable(type,flag);
+		// 		}
+		// 	}
+
+		// 	function checkDisable(type,flag){
+		// 		var isChecked = isDisabled = false;
+		// 		var doms = $(".form-group").find("."+type);
+		// 		var dom = doms.find("."+type+"_square-green");
+		// 		dom.on("click",function(){
+		// 			var isChecked = $(this).hasClass("checked");
+		// 			var isDisabled = $(this).hasClass("disabled");
+		// 			if(isDisabled){
+		// 				return false;
+		// 			}
+		// 			if(flag){
+		// 				var pDoms = $(this).parents("."+type).siblings("."+type);
+		// 				pDoms.find(".radio_square").removeClass("checked");
+		// 				$(this).addClass("checked");
+		// 			}else{
+		// 				$(this)[isChecked ? "removeClass" : "addClass"]("checked");
+		// 				$(this).find("input").attr("checked",!isChecked);
+		// 			}
+		// 			return false;
+		// 		});
+		// 	}
+		// });
+	</script>
+</body>
+</html>

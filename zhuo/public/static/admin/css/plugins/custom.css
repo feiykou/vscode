@@ -1,0 +1,65 @@
+/* iCheck plugin Square skin, green
+----------------------------------- */
+.radio, .checkbox{
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+}
+.checkbox_square-green,
+.radio_square-green {
+    position: relative;
+    display: inline-block;
+    *display: inline;
+    vertical-align: top;
+    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+    background: url(green.png) no-repeat;
+    border: none;
+    cursor: pointer;
+}
+
+.checkbox_square-green {
+    background-position: 0 0;
+}
+.checkbox_square-green.hover {
+    background-position: -24px 0;
+}
+.checkbox_square-green.checked {
+    background-position: -48px 0;
+}
+.checkbox_square-green.disabled {
+    background-position: -72px 0;
+    cursor: default;
+}
+.checkbox_square-green.checked.disabled {
+    background-position: -96px 0;
+}
+
+.radio_square-green {
+    background-position: -120px 0;
+}
+.radio_square-green.hover {
+    background-position: -144px 0;
+}
+.radio_square-green.checked {
+    background-position: -168px 0;
+}
+.radio_square-green.disabled {
+    background-position: -192px 0;
+    cursor: default;
+}
+.radio_square-green.checked.disabled {
+    background-position: -216px 0;
+}
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+    .checkbox_square-green,
+    .radio_square-green {
+        background-image: url(green@2x.png);
+        -webkit-background-size: 240px 24px;
+        background-size: 240px 24px;
+    }
+}
